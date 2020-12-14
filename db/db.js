@@ -17,7 +17,6 @@ const pool = new Pool({
     process.env.NODE_ENV === "production"
       ? productionConfig
       : developmentConfig,
-  ssl: true,
 });
 
 pool.connect((err) => {

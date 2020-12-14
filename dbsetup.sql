@@ -31,4 +31,4 @@ CREATE TABLE reviews(
 );
 
 -- insert fake reviews data for testing
-INSERT INTO reviews (name, review, rating, restaurant_id) VALUES ('John', 'This is an awesome place', 2, '15b890bc-b76f-490d-a370-e37dadc687b2');
+INSERT INTO reviews (name, review, rating, restaurant_id) VALUES ('John', 'This is an awesome place', 2, '973b5c99-ec5a-4d6c-8306-bb937c97634d');
