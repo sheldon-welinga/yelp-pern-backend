@@ -23,7 +23,7 @@ SELECT * FROM restaurants;
 -- create a table called reviews
 
 CREATE TABLE reviews(
-    reviews_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    review_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(100) NOT NULL,
     review TEXT NOT NULL,
     rating INT NOT NULL CHECK(rating>=1 AND rating<=5),

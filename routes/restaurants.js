@@ -5,7 +5,10 @@ const validate = require("uuid-validate");
 // Get all restaurants
 router.get("/", async (req, res) => {
   try {
-    const restaurants = await db.query("SELECT * FROM restaurants");
+    // const restaurants = await db.query("SELECT * FROM restaurants");
+    const restaurants = await db.query(
+      "SELECT * FROM  restaurants LEFT JOIN (SELECT restaurant_id as review_restaurant_id, COUNT(rating) as rating_count, TRUNC(AVG(rating), 1) as average_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.restaurant_id = reviews.review_restaurant_id"
+    );
 
     //check if no restaurants are currently available in the database and return an error else return all restaurants found
     if (restaurants.rows.length === 0) {
@@ -31,8 +34,12 @@ router.get("/:restaurantId", async (req, res) => {
     // 2. check if restaurantId provided is of valid type uuid, if not return an error
     if (validate(restaurantId)) {
       // 3. get a single restaurant with the specified id
+      // const restaurant = await db.query(
+      //   "SELECT * FROM restaurants WHERE restaurant_id=$1",
+      //   [restaurantId]
+      // );
       const restaurant = await db.query(
-        "SELECT * FROM restaurants WHERE restaurant_id=$1",
+        "SELECT * FROM  restaurants LEFT JOIN (SELECT restaurant_id as review_restaurant_id, COUNT(rating) as rating_count, TRUNC(AVG(rating), 1) as average_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.restaurant_id = reviews.review_restaurant_id WHERE restaurants.restaurant_id = $1",
         [restaurantId]
       );
 
